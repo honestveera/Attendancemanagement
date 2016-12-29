@@ -1,0 +1,441 @@
+  [1m[36m (112.8ms)[0m  [1mCREATE TABLE "calenders" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "dateformat" varchar, "timeslot" varchar, "interviewername" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "interviewer_id" integer, "primaryskills_id" integer, "secondaryskills_id" integer, "status" varchar) [0m
+  [1m[35m (114.3ms)[0m  CREATE TABLE "candidatedetails" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "candidatename" varchar, "candidateemail" varchar, "candidatecontact" decimal, "primaryskills" varchar, "secondaryskills" varchar, "otherskills" varchar, "primaryskills_id" integer, "secondaryskills_id" integer, "otherskills_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "attachedfile_file_name" varchar, "attachedfile_content_type" varchar, "attachedfile_file_size" integer, "attachedfile_updated_at" datetime, "status" varchar, "jobtitle" varchar, "skypeid" varchar) 
+  [1m[36m (122.5ms)[0m  [1mCREATE TABLE "candidateprofiles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "candidatename" varchar, "candidateemail" varchar, "primaryskills" varchar, "secondaryskills" varchar, "otherskills" varchar, "interviewername" varchar, "intervieweremail" varchar, "scheduledate" varchar, "scheduletime" varchar, "jobdescription" text, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "candidatecontact" decimal, "jobtitle" varchar, "candidatedetail_id" integer, "interviewer_id" integer, "status" varchar, "skypeid" varchar) [0m
+  [1m[35m (0.3ms)[0m  select sqlite_version(*)
+  [1m[36m (108.1ms)[0m  [1mCREATE  INDEX "index_candidateprofiles_on_candidatedetail_id" ON "candidateprofiles" ("candidatedetail_id")[0m
+  [1m[35m (0.3ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_candidateprofiles_on_candidatedetail_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_candidateprofiles_on_candidatedetail_id' AND type='index'
+
+  [1m[36m (105.6ms)[0m  [1mCREATE  INDEX "index_candidateprofiles_on_interviewer_id" ON "candidateprofiles" ("interviewer_id")[0m
+  [1m[35m (107.1ms)[0m  CREATE TABLE "companies" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "companyemail" varchar, "role" varchar, "password" varchar, "password_confirmation" varchar) 
+  [1m[36m (94.5ms)[0m  [1mCREATE TABLE "companycreations" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar DEFAULT '' NOT NULL, "encrypted_password" varchar DEFAULT '' NOT NULL, "reset_password_token" varchar, "reset_password_sent_at" datetime, "remember_created_at" datetime, "sign_in_count" integer DEFAULT 0 NOT NULL, "current_sign_in_at" datetime, "last_sign_in_at" datetime, "current_sign_in_ip" varchar, "last_sign_in_ip" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
+  [1m[35m (106.6ms)[0m  CREATE UNIQUE INDEX "index_companycreations_on_email" ON "companycreations" ("email")
+  [1m[36m (0.2ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_companycreations_on_email' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_companycreations_on_email' AND type='index'
+[0m
+  [1m[35m (107.5ms)[0m  CREATE UNIQUE INDEX "index_companycreations_on_reset_password_token" ON "companycreations" ("reset_password_token")
+  [1m[36m (114.7ms)[0m  [1mCREATE TABLE "delayed_jobs" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "priority" integer DEFAULT 0 NOT NULL, "attempts" integer DEFAULT 0 NOT NULL, "handler" text NOT NULL, "last_error" text, "run_at" datetime, "locked_at" datetime, "failed_at" datetime, "locked_by" varchar, "queue" varchar, "created_at" datetime, "updated_at" datetime, "progress_stage" varchar, "progress_current" integer DEFAULT 0, "progress_max" integer DEFAULT 0) [0m
+  [1m[35m (106.7ms)[0m  CREATE  INDEX "delayed_jobs_priority" ON "delayed_jobs" ("priority", "run_at")
+  [1m[36m (113.8ms)[0m  [1mCREATE TABLE "interviewerfeedbacks" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "interviewername" varchar, "candidatename" varchar, "status" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "primaryskills" varchar, "secondaryskills" varchar, "attachedfile_file_name" varchar, "attachedfile_content_type" varchar, "attachedfile_file_size" integer, "attachedfile_updated_at" datetime, "communication" integer, "communicationcomment" text, "technicalskills" integer, "technicalskillscomment" text, "analyticalskills" integer, "analyticalskillscomment" text, "attitude" integer, "attitudecomment" text, "timemanagement" integer, "timemanagementcomment" text, "commitementtask" integer, "commitementtaskcomment" text, "leadership" integer, "leadershipcomment" text, "teamwork" integer, "teamworkcomment" text, "creativity" integer, "creativitycomment" text, "flexibility" integer, "flexibilitycomment" text, "scheduletime" varchar, "scheduledate" varchar, "overallassesment" float, "candidatemail" varchar, "othercomment" text) [0m
+  [1m[35m (123.3ms)[0m  CREATE TABLE "interviewers" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "interviewername" varchar, "interviewercompany" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "companyemail" varchar, "primaryskills" varchar, "primaryskills_id" varchar, "secondaryskills" varchar, "secondaryskills_id" varchar, "otherskills" varchar) 
+  [1m[36m (107.0ms)[0m  [1mCREATE TABLE "skillsets" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "skills" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
+  [1m[35m (98.4ms)[0m  CREATE TABLE "schema_migrations" ("version" varchar NOT NULL) 
+  [1m[36m (106.9ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (0.2ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (86.4ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160915082616')[0m
+  [1m[35m (82.2ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160728055110')
+  [1m[36m (82.3ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160719074935')[0m
+  [1m[35m (82.5ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160728055233')
+  [1m[36m (90.5ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160912125705')[0m
+  [1m[35m (74.0ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160804062523')
+  [1m[36m (74.2ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160912085749')[0m
+  [1m[35m (82.3ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160721112812')
+  [1m[36m (82.3ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160804084855')[0m
+  [1m[35m (90.6ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160726060053')
+  [1m[36m (68.2ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160720043313')[0m
+  [1m[35m (71.7ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160725101057')
+  [1m[36m (90.5ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160728054230')[0m
+  [1m[35m (90.4ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160721111257')
+  [1m[36m (90.6ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160728054146')[0m
+  [1m[35m (82.3ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160721112402')
+  [1m[36m (82.4ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160728054316')[0m
+  [1m[35m (76.5ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160728055344')
+  [1m[36m (82.5ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160804095116')[0m
+  [1m[35m (74.0ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160725105604')
+  [1m[36m (74.0ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160804064052')[0m
+  [1m[35m (74.0ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160721111419')
+  [1m[36m (96.4ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160912094548')[0m
+  [1m[35m (98.8ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160728055136')
+  [1m[36m (179.8ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160728044303')[0m
+  [1m[35m (116.8ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160725060957')
+  [1m[36m (68.1ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160721113808')[0m
+  [1m[35m (74.0ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160725101236')
+  [1m[36m (82.3ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160729120747')[0m
+  [1m[35m (74.2ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160725053131')
+  [1m[36m (90.3ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160808095100')[0m
+  [1m[35m (90.6ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160804084820')
+  [1m[36m (82.4ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160728055030')[0m
+  [1m[35m (82.2ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160812091015')
+  [1m[36m (82.4ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160728053818')[0m
+  [1m[35m (90.4ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160804111044')
+  [1m[36m (90.6ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160804084757')[0m
+  [1m[35m (82.4ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160720061412')
+  [1m[36m (82.3ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160721113736')[0m
+  [1m[35m (82.5ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160721113201')
+  [1m[36m (82.1ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160721112501')[0m
+  [1m[35m (82.5ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160720095042')
+  [1m[36m (82.1ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160728054810')[0m
+  [1m[35m (82.3ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160726060418')
+  [1m[36m (82.3ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160726060144')[0m
+  [1m[35m (82.3ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160804095019')
+  [1m[36m (90.7ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160721112847')[0m
+  [1m[35m (88.1ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160725101018')
+  [1m[36m (123.1ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160721114602')[0m
+  [1m[35m (101.5ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160728055316')
+  [1m[36m (139.9ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160804084919')[0m
+  [1m[35m (82.3ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160727115937')
+  [1m[36m (82.2ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160720044739')[0m
+  [1m[35m (82.2ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160725111334')
+  [1m[36m (82.2ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160720125432')[0m
+  [1m[35m (82.2ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160728055435')
+  [1m[36m (82.1ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160720123155')[0m
+  [1m[35m (98.8ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160719101800')
+  [1m[36m (90.5ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160728053633')[0m
+  [1m[35m (90.4ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160720125500')
+  [1m[36m (90.5ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160721044234')[0m
+  [1m[35m (90.4ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160912094446')
+  [1m[36m (90.5ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160809044618')[0m
+  [1m[35m (98.8ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160726060538')
+  [1m[36m (98.6ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160728054937')[0m
+  [1m[35m (98.8ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160728044406')
+  [1m[36m (98.7ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160720103000')[0m
+  [1m[35m (104.9ms)[0m  CREATE TABLE "calenders" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "dateformat" varchar, "timeslot" varchar, "interviewername" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "interviewer_id" integer, "primaryskills_id" integer, "secondaryskills_id" integer, "status" varchar) 
+  [1m[36m (89.6ms)[0m  [1mCREATE TABLE "candidatedetails" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "candidatename" varchar, "candidateemail" varchar, "candidatecontact" decimal, "primaryskills" varchar, "secondaryskills" varchar, "otherskills" varchar, "primaryskills_id" integer, "secondaryskills_id" integer, "otherskills_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "attachedfile_file_name" varchar, "attachedfile_content_type" varchar, "attachedfile_file_size" integer, "attachedfile_updated_at" datetime, "status" varchar, "jobtitle" varchar, "skypeid" varchar) [0m
+  [1m[35m (89.8ms)[0m  CREATE TABLE "candidateprofiles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "candidatename" varchar, "candidateemail" varchar, "primaryskills" varchar, "secondaryskills" varchar, "otherskills" varchar, "interviewername" varchar, "intervieweremail" varchar, "scheduledate" varchar, "scheduletime" varchar, "jobdescription" text, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "candidatecontact" decimal, "jobtitle" varchar, "candidatedetail_id" integer, "interviewer_id" integer, "status" varchar, "skypeid" varchar) 
+  [1m[36m (0.2ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (90.0ms)[0m  CREATE  INDEX "index_candidateprofiles_on_candidatedetail_id" ON "candidateprofiles" ("candidatedetail_id")
+  [1m[36m (0.3ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_candidateprofiles_on_candidatedetail_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_candidateprofiles_on_candidatedetail_id' AND type='index'
+[0m
+  [1m[35m (97.9ms)[0m  CREATE  INDEX "index_candidateprofiles_on_interviewer_id" ON "candidateprofiles" ("interviewer_id")
+  [1m[36m (114.9ms)[0m  [1mCREATE TABLE "companies" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "companyemail" varchar, "role" varchar, "password" varchar, "password_confirmation" varchar) [0m
+  [1m[35m (106.1ms)[0m  CREATE TABLE "companycreations" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar DEFAULT '' NOT NULL, "encrypted_password" varchar DEFAULT '' NOT NULL, "reset_password_token" varchar, "reset_password_sent_at" datetime, "remember_created_at" datetime, "sign_in_count" integer DEFAULT 0 NOT NULL, "current_sign_in_at" datetime, "last_sign_in_at" datetime, "current_sign_in_ip" varchar, "last_sign_in_ip" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36m (123.3ms)[0m  [1mCREATE UNIQUE INDEX "index_companycreations_on_email" ON "companycreations" ("email")[0m
+  [1m[35m (0.2ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_companycreations_on_email' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_companycreations_on_email' AND type='index'
+
+  [1m[36m (114.4ms)[0m  [1mCREATE UNIQUE INDEX "index_companycreations_on_reset_password_token" ON "companycreations" ("reset_password_token")[0m
+  [1m[35m (114.7ms)[0m  CREATE TABLE "delayed_jobs" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "priority" integer DEFAULT 0 NOT NULL, "attempts" integer DEFAULT 0 NOT NULL, "handler" text NOT NULL, "last_error" text, "run_at" datetime, "locked_at" datetime, "failed_at" datetime, "locked_by" varchar, "queue" varchar, "created_at" datetime, "updated_at" datetime, "progress_stage" varchar, "progress_current" integer DEFAULT 0, "progress_max" integer DEFAULT 0) 
+  [1m[36m (115.0ms)[0m  [1mCREATE  INDEX "delayed_jobs_priority" ON "delayed_jobs" ("priority", "run_at")[0m
+  [1m[35m (105.9ms)[0m  CREATE TABLE "interviewerfeedbacks" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "interviewername" varchar, "candidatename" varchar, "status" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "primaryskills" varchar, "secondaryskills" varchar, "attachedfile_file_name" varchar, "attachedfile_content_type" varchar, "attachedfile_file_size" integer, "attachedfile_updated_at" datetime, "communication" integer, "communicationcomment" text, "technicalskills" integer, "technicalskillscomment" text, "analyticalskills" integer, "analyticalskillscomment" text, "attitude" integer, "attitudecomment" text, "timemanagement" integer, "timemanagementcomment" text, "commitementtask" integer, "commitementtaskcomment" text, "leadership" integer, "leadershipcomment" text, "teamwork" integer, "teamworkcomment" text, "creativity" integer, "creativitycomment" text, "flexibility" integer, "flexibilitycomment" text, "scheduletime" varchar, "scheduledate" varchar, "overallassesment" float, "candidatemail" varchar, "othercomment" text) 
+  [1m[36m (116.3ms)[0m  [1mCREATE TABLE "interviewers" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "interviewername" varchar, "interviewercompany" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "companyemail" varchar, "primaryskills" varchar, "primaryskills_id" varchar, "secondaryskills" varchar, "secondaryskills_id" varchar, "otherskills" varchar) [0m
+  [1m[35m (106.4ms)[0m  CREATE TABLE "skillsets" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "skills" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36m (107.0ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (115.1ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.2ms)[0m  [1mSELECT version FROM "schema_migrations"[0m
+  [1m[35m (93.4ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160915082616')
+  [1m[36m (98.5ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160728055110')[0m
+  [1m[35m (107.1ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160719074935')
+  [1m[36m (90.6ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160728055233')[0m
+  [1m[35m (90.6ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160912125705')
+  [1m[36m (90.6ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160804062523')[0m
+  [1m[35m (90.5ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160912085749')
+  [1m[36m (74.0ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160721112812')[0m
+  [1m[35m (74.1ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160804084855')
+  [1m[36m (90.7ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160726060053')[0m
+  [1m[35m (90.4ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160720043313')
+  [1m[36m (90.5ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160725101057')[0m
+  [1m[35m (90.6ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160728054230')
+  [1m[36m (115.5ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160721111257')[0m
+  [1m[35m (106.8ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160728054146')
+  [1m[36m (90.6ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160721112402')[0m
+  [1m[35m (115.4ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160728054316')
+  [1m[36m (98.8ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160728055344')[0m
+  [1m[35m (82.3ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160804095116')
+  [1m[36m (90.6ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160725105604')[0m
+  [1m[35m (90.6ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160804064052')
+  [1m[36m (90.4ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160721111419')[0m
+  [1m[35m (90.6ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160912094548')
+  [1m[36m (90.6ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160728055136')[0m
+  [1m[35m (90.5ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160728044303')
+  [1m[36m (90.6ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160725060957')[0m
+  [1m[35m (82.5ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160721113808')
+  [1m[36m (90.4ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160725101236')[0m
+  [1m[35m (82.3ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160729120747')
+  [1m[36m (82.3ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160725053131')[0m
+  [1m[35m (90.6ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160808095100')
+  [1m[36m (90.7ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160804084820')[0m
+  [1m[35m (90.4ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160728055030')
+  [1m[36m (107.2ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160812091015')[0m
+  [1m[35m (98.7ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160728053818')
+  [1m[36m (98.8ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160804111044')[0m
+  [1m[35m (98.8ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160804084757')
+  [1m[36m (98.8ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160720061412')[0m
+  [1m[35m (98.6ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160721113736')
+  [1m[36m (73.8ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160721113201')[0m
+  [1m[35m (90.5ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160721112501')
+  [1m[36m (99.0ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160720095042')[0m
+  [1m[35m (90.5ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160728054810')
+  [1m[36m (90.5ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160726060418')[0m
+  [1m[35m (106.9ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160726060144')
+  [1m[36m (73.8ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160804095019')[0m
+  [1m[35m (98.7ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160721112847')
+  [1m[36m (90.6ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160725101018')[0m
+  [1m[35m (122.9ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160721114602')
+  [1m[36m (82.5ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160728055316')[0m
+  [1m[35m (116.2ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160804084919')
+  [1m[36m (80.8ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160727115937')[0m
+  [1m[35m (90.3ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160720044739')
+  [1m[36m (90.5ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160725111334')[0m
+  [1m[35m (99.9ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160720125432')
+  [1m[36m (98.7ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160728055435')[0m
+  [1m[35m (82.2ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160720123155')
+  [1m[36m (82.4ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160719101800')[0m
+  [1m[35m (82.2ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160728053633')
+  [1m[36m (90.8ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160720125500')[0m
+  [1m[35m (90.4ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160721044234')
+  [1m[36m (99.0ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160912094446')[0m
+  [1m[35m (90.4ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160809044618')
+  [1m[36m (90.5ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160726060538')[0m
+  [1m[35m (90.6ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160728054937')
+  [1m[36m (73.1ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160728044406')[0m
+  [1m[35m (90.5ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160720103000')
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.2ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.2ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_candidateprofiles_on_interviewer_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_candidateprofiles_on_interviewer_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_candidateprofiles_on_candidatedetail_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_candidateprofiles_on_candidatedetail_id' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_companycreations_on_reset_password_token' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_companycreations_on_reset_password_token' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_companycreations_on_email' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_companycreations_on_email' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='delayed_jobs_priority' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='delayed_jobs_priority' AND type='index'
+[0m
+
+
+Started GET "/" for 127.0.0.1 at 2016-12-16 20:58:32 +0530
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by CompaniesController#login as HTML
+  Rendered companies/login.html.erb (619.4ms)
+Completed 200 OK in 643ms (Views: 632.6ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/assets/calenders.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-12-16 20:58:33 +0530
+
+
+Started GET "/assets/candidatedetails.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-12-16 20:58:33 +0530
+
+
+Started GET "/assets/companies.self-046c01082c5a1daad6c6313d1eb6b879bfb1d09075be2f1f00001156eb82d641.css?body=1" for 127.0.0.1 at 2016-12-16 20:58:33 +0530
+
+
+Started GET "/assets/candidateprofiles.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-12-16 20:58:33 +0530
+
+
+Started GET "/assets/interviewerfeedbacks.self-56055e945b40b059fabdde92bb0e0b490f4896a2f1688dd1cedb17909c531f97.css?body=1" for 127.0.0.1 at 2016-12-16 20:58:33 +0530
+
+
+Started GET "/assets/interviewers.self-793f89592cdc647022a0af41fb768eb36963a1a8aa79ea9ba40ec4e93b3aa8bf.css?body=1" for 127.0.0.1 at 2016-12-16 20:58:33 +0530
+
+
+Started GET "/assets/scaffolds.self-dfebe353e2c35d4c8954518bca23a5a844083e51fe63b8e7f5d85a5065449565.css?body=1" for 127.0.0.1 at 2016-12-16 20:58:33 +0530
+
+
+Started GET "/assets/skillsets.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-12-16 20:58:33 +0530
+
+
+Started GET "/assets/application.self-074a924a4c34f2544718ada7b1d488293534a419e8ecba5cd0f56979b2c1657b.css?body=1" for 127.0.0.1 at 2016-12-16 20:58:33 +0530
+
+
+Started GET "/assets/dataTables/bootstrap/3/jquery.dataTables.bootstrap.self-cab75a727457adc2471bef100e5c05ba6cdb05c53368f46a0259482bf43ee4eb.css?body=1" for 127.0.0.1 at 2016-12-16 20:58:33 +0530
+
+
+Started GET "/assets/bootstrap-datetimepicker.self-32c6232f7849b55301ad68e5b577a8f5574fd4f2795ab2914b9714310863bf59.css?body=1" for 127.0.0.1 at 2016-12-16 20:58:33 +0530
+
+
+Started GET "/assets/jquery.self-660adc51e0224b731d29f575a6f1ec167ba08ad06ed5deca4f1e8654c135bf4c.js?body=1" for 127.0.0.1 at 2016-12-16 20:58:33 +0530
+
+
+Started GET "/assets/bootstrap/affix.self-d2b642d8fbfc1d7041e2edefd66683ada567a980789dcd6f94fddda0b33408b5.js?body=1" for 127.0.0.1 at 2016-12-16 20:58:33 +0530
+
+
+Started GET "/assets/bootstrap/alert.self-a29e91e8cd3ddaba9bbc466901d53ec2127e9256b9b941905d525a3a716bd1a5.js?body=1" for 127.0.0.1 at 2016-12-16 20:58:34 +0530
+
+
+Started GET "/assets/bootstrap/button.self-a6cb16785434acb365ae426aef9f1fce05ed553cae7a965e4471c3da71509175.js?body=1" for 127.0.0.1 at 2016-12-16 20:58:34 +0530
+
+
+Started GET "/assets/bootstrap/dropdown.self-9314126777c6be5443e37ea7f7967d7914d72b3e60449ba50edc967446373059.js?body=1" for 127.0.0.1 at 2016-12-16 20:58:34 +0530
+
+
+Started GET "/assets/bootstrap/collapse.self-7dc8bfbc2fbfabd2bad62c58ff8ffeaf8f20fb87c7ca6cd35f06d4dc19632587.js?body=1" for 127.0.0.1 at 2016-12-16 20:58:34 +0530
+
+
+Started GET "/assets/bootstrap/carousel.self-57eb8422043cf0a85b7a9dc6843916eb0a3e35b419c7798a5eb254b918997631.js?body=1" for 127.0.0.1 at 2016-12-16 20:58:34 +0530
+
+
+Started GET "/assets/bootstrap/tab.self-122235057fbd4c6c7da377d59dc58f47b44cb1088a2e38e6ee6ce9d8ac29a26a.js?body=1" for 127.0.0.1 at 2016-12-16 20:58:34 +0530
+
+
+Started GET "/assets/bootstrap/transition.self-09ff30b1e8a93d1f7728b9855f55d9c9d8d5734c8861e0d8139994e50944572a.js?body=1" for 127.0.0.1 at 2016-12-16 20:58:34 +0530
+
+
+Started GET "/assets/bootstrap/scrollspy.self-a155b9d4b2f978905f0326c0f6635e1134fe91c6bfbfcbad079fa24a9fef2b0e.js?body=1" for 127.0.0.1 at 2016-12-16 20:58:34 +0530
+
+
+Started GET "/assets/bootstrap/modal.self-72f95ffa1071297725a9ac91989693d56d1abf23f441a47455073b0da2857a5b.js?body=1" for 127.0.0.1 at 2016-12-16 20:58:34 +0530
+
+
+Started GET "/assets/bootstrap/tooltip.self-11cf547be953f25f511cec668f6690473fd97b2f65502e4032f4030999a3f0c3.js?body=1" for 127.0.0.1 at 2016-12-16 20:58:34 +0530
+
+
+Started GET "/assets/bootstrap/popover.self-77d8e3a2499c1104ef146396a68b82469ee2bdb365199b874694698d10405e9a.js?body=1" for 127.0.0.1 at 2016-12-16 20:58:34 +0530
+
+
+Started GET "/assets/bootstrap-sprockets.self-fbfa5ad7d9aa0afe439ec4ff3883acc4cb92b62cb67c40d674320c9aa1d4642d.js?body=1" for 127.0.0.1 at 2016-12-16 20:58:34 +0530
+
+
+Started GET "/assets/jquery_ujs.self-e87806d0cf4489aeb1bb7288016024e8de67fd18db693fe026fe3907581e53cd.js?body=1" for 127.0.0.1 at 2016-12-16 20:58:34 +0530
+
+
+Started GET "/assets/dataTables/jquery.dataTables.self-770bf6f5f52c93784a25c3c866719f24d091a3f864c36850a7d338b58bbed52c.js?body=1" for 127.0.0.1 at 2016-12-16 20:58:34 +0530
+
+
+Started GET "/assets/dataTables/bootstrap/3/jquery.dataTables.bootstrap.self-447fa22a7aa12f01eaf2d37b45bd9b5321653e6629d888973a478ba856099083.js?body=1" for 127.0.0.1 at 2016-12-16 20:58:34 +0530
+
+
+Started GET "/assets/dataTables/extras/dataTables.tableTools.self-3e2ba4d770c2417244fcff0ec83d3d2e1dc0e632c7389ae2ef9cea1573e443b4.js?body=1" for 127.0.0.1 at 2016-12-16 20:58:34 +0530
+
+
+Started GET "/assets/bootstrap-select.self-de88cf1fdcec077fb9e0c56b427be93ddab1e408ce060d106f3f807cbe2b9b10.js?body=1" for 127.0.0.1 at 2016-12-16 20:58:34 +0530
+
+
+Started GET "/assets/turbolinks.self-c5acd7a204f5f25ce7a1d8a0e4d92e28d34c9e2df2c7371cd7af88e147e4ad82.js?body=1" for 127.0.0.1 at 2016-12-16 20:58:34 +0530
+
+
+Started GET "/assets/moment.self-6ab65bcb51ba1c538f5900a720453c5aff4c483661520b52008568b330d5dd03.js?body=1" for 127.0.0.1 at 2016-12-16 20:58:34 +0530
+
+
+Started GET "/assets/bootstrap-filestyle.self-7e78d5c497b8e2c9fd0d63f345442a2260ef7c1a79cc7373e03dfed73f916f86.js?body=1" for 127.0.0.1 at 2016-12-16 20:58:34 +0530
+
+
+Started GET "/assets/bootstrap-datetimepicker.self-f4c780e77f9e34c90cc43fc2a2bc2d2f11d5b54470904990480fc9cb434d918c.js?body=1" for 127.0.0.1 at 2016-12-16 20:58:34 +0530
+
+
+Started GET "/assets/calenders.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-12-16 20:58:34 +0530
+
+
+Started GET "/assets/candidatedetails.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-12-16 20:58:34 +0530
+
+
+Started GET "/assets/candidateprofiles.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-12-16 20:58:34 +0530
+
+
+Started GET "/assets/companies.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-12-16 20:58:34 +0530
+
+
+Started GET "/assets/interviewerfeedbacks.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-12-16 20:58:34 +0530
+
+
+Started GET "/assets/interviewers.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-12-16 20:58:34 +0530
+
+
+Started GET "/assets/skillsets.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-12-16 20:58:34 +0530
+
+
+Started GET "/assets/application.self-6e6a4e12546a52d15a7a20edd6c6bee5d865039bf7bb030fa640ed67d1b039fe.js?body=1" for 127.0.0.1 at 2016-12-16 20:58:34 +0530
+
+
+Started GET "/assets/Markuci.png" for 127.0.0.1 at 2016-12-16 20:58:34 +0530
+
+
+Started GET "/assets/hq.jpeg" for 127.0.0.1 at 2016-12-16 20:58:34 +0530
+
+
+Started GET "/forgotpassword" for 127.0.0.1 at 2016-12-16 20:58:38 +0530
+Processing by CompaniesController#forgotpassword as HTML
+  Rendered companies/forgotpassword.html.erb (99.4ms)
+Completed 200 OK in 102ms (Views: 101.0ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/forgotpasswor" for 127.0.0.1 at 2016-12-16 20:58:41 +0530
+Processing by CompaniesController#forgotpasswor as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"JsB+jyBgmNTzLPGQLX5FTjnSCuB0q0c/OBlV+yZLDCcgm3i4veLHNdw7sn+j8+ov79WT62fu2A37pJiRPNSKLg==", "company"=>{"companyemail"=>""}, "commit"=>"Send Password"}
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM "companies" WHERE (companyemail='')
+Redirected to http://localhost:3000/forgotpassword
+Completed 302 Found in 4ms (ActiveRecord: 0.3ms)
+
+
+Started GET "/forgotpassword" for 127.0.0.1 at 2016-12-16 20:58:41 +0530
+Processing by CompaniesController#forgotpassword as HTML
+  Rendered companies/forgotpassword.html.erb (104.4ms)
+Completed 200 OK in 107ms (Views: 105.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/Markuci.png" for 127.0.0.1 at 2016-12-16 20:58:41 +0530
+
+
+Started GET "/assets/hq.jpeg" for 127.0.0.1 at 2016-12-16 20:58:41 +0530
+
+
+Started GET "/" for 127.0.0.1 at 2016-12-16 20:58:46 +0530
+Processing by CompaniesController#login as HTML
+  Rendered companies/login.html.erb (97.4ms)
+Completed 200 OK in 99ms (Views: 98.7ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/credential" for 127.0.0.1 at 2016-12-16 20:58:47 +0530
+Processing by CompaniesController#credential as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"+R8kYIFBP+5Js1vViQVTGr7qe0CrYRNe1Dls+OxqGLr/RCJXHMNgD2akGDoHiPx7aO3iS7gkjGwXhKGS9vWesw==", "company"=>{"companyemail"=>"", "password"=>"[FILTERED]"}, "commit"=>"Login"}
+  [1m[36m (0.3ms)[0m  [1mSELECT COUNT(*) FROM "companies" WHERE (companyemail='' AND password='' )[0m
+Redirected to http://localhost:3000/login
+Completed 302 Found in 3ms (ActiveRecord: 0.3ms)
+
+
+Started GET "/login" for 127.0.0.1 at 2016-12-16 20:58:47 +0530
+Processing by CompaniesController#login as HTML
+  Rendered companies/login.html.erb (98.5ms)
+Completed 200 OK in 100ms (Views: 99.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/Markuci.png" for 127.0.0.1 at 2016-12-16 20:58:48 +0530
+
+
+Started GET "/assets/hq.jpeg" for 127.0.0.1 at 2016-12-16 20:58:48 +0530
+
+
+Started GET "/forgotpassword" for 127.0.0.1 at 2016-12-16 20:58:51 +0530
+Processing by CompaniesController#forgotpassword as HTML
+  Rendered companies/forgotpassword.html.erb (116.7ms)
+Completed 200 OK in 120ms (Views: 118.4ms | ActiveRecord: 0.0ms)

@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Candidatename:</strong>
+  <%= @candidatedetail.candidatename %>
+</p>
+
+<p>
+  <strong>Candidateemail:</strong>
+  <%= @candidatedetail.candidateemail %>
+</p>
+
+<p>
+  <strong>Candidatecontact:</strong>
+  <%= @candidatedetail.candidatecontact %>
+</p>
+
+<p>
+  <strong>Skills:</strong>
+  <%= @candidatedetail.primaryskills_id %>
+</p>
+
+<p>
+  <strong>Job Title:</strong>
+  <%= @candidatedetail.jobtitle %>
+</p>
+
+<%= link_to 'Edit', edit_candidatedetail_path(@candidatedetail) %> |
+<%= link_to 'Back', candidatedetails_path %>

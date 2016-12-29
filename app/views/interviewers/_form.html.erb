@@ -1,0 +1,112 @@
+<%= form_for(@interviewer) do |f| %>
+  <% if @interviewer.errors.any? %>
+    <div id="error_explanation">
+      <h4><%= pluralize(@interviewer.errors.count, "error") %> prohibited this interviewer from being saved:</h4>
+
+      <ul>
+      <% @interviewer.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="row">
+     <div class="col-lg-4 col-lg-offset-4">
+         <div class="input-group">
+            <div class="form-group">
+              <%= f.label :interviewername,"Interviewer Name" %><br>
+              <%= f.text_field :interviewername,:placeholder=>"Interviewer Name",:class=>"form-control required",:required=>true%>
+            </div>
+            <div class="field">
+              <%= f.label :interviewercompany,"Interviewer Company" %><br>
+              <%= f.text_field :interviewercompany,:placeholder=>"Interviewer Company",:class=>"form-control required",:required=>true %>
+            </div>
+            <div class="field">
+              <%= f.label :companyemail,"Company Email"%><br>
+              <%= f.text_field :companyemail ,:placeholder=>"Company Email",:class=>"form-control required",:required=>true%>
+            </div>
+            <div class="form-group">
+              <%= f.label :primaryskills_id,"Primary Skills"%><br>
+              <%= f.select :primaryskills_id,options_for_select(Skillset.all.collect{|ss| [ss.skills, ss.id]}),{:prompt => "-- Select Primary Skills --"},{ class: "selectpicker", data: {live_search: 'true',width:"auto" }}%>
+            </div>
+
+            <div class="field">
+              <%= f.label :secondaryskills_id,"Secondary Skills"%><br>
+              <%= f.select :secondaryskills_id,options_for_select(Skillset.all.collect{|ss| [ss.skills, ss.id]}),{:prompt => "-- Select Secondary Skills --"},{ class: "selectpicker", data: {live_search: 'true',width:"auto" }} %>
+            </div>
+            <div class="form-group">
+              <%= f.hidden_field :primaryskills%>
+            </div>
+            <div class="form-group">
+              <%= f.hidden_field :secondaryskills%>
+            </div>
+            <div class="field">
+              <%= f.label :otherskills,"Other Skills"%><br>
+              <%= f.text_field :otherskills,:placeholder=>"Other Skills",:class=>"form-control required",:required=>true%>
+            </div>
+            <div class="form-group">
+              <%= f.hidden_field "companyema",:class=>"required",:value => session[:companyemail]%>
+            </div>
+            <div class="form-group">
+              <%= f.hidden_field "password",:class=>"required",:value => session[:password]%>
+            </div>
+         </div>
+      </div>
+            <div class="row">
+              <div  class="col-lg-4 col-lg-offset-4">
+              <div class="actions">
+              <%= f.submit :class=>"btn btn-primary btn-md",:id=>"interviewersubmit"%>
+            </div>
+          </div>
+        </div>
+
+</div>
+<% end %>
+
+<script type="text/javascript">
+$('.selectpicker').selectpicker({
+    size: "fit",
+    showTick:true,
+    tickIcon:"",
+    showTick:true
+});
+$('#interviewer_primaryskills_id').change(function(){
+  var text=$('#interviewer_primaryskills_id option:selected').text();
+  $('#interviewer_primaryskills').val(text);
+
+});
+$('#interviewer_secondaryskills_id').change(function(){
+  var text=$('#interviewer_secondaryskills_id option:selected').text();
+  $('#interviewer_secondaryskills').val(text);
+});
+$('input[type="text"]').focusout(function(){
+   if($(this).val()=="")
+   {
+     $(this).css({"border-color":"red","border-width":"2px"});
+   }
+   else
+   {
+     $(this).css({"border-color":"skyblue"});
+   }
+});
+$('input[type="number"]').focusout(function(){
+   if($(this).val()=="")
+   {
+     $(this).css({"border-color":"red","border-width":"2px"});
+   }
+   else
+   {
+     $(this).css({"border-color":"skyblue"});
+   }
+});
+$('select').focusout(function(){
+   if($(this).val()=="")
+   {
+     $(this).css({"border-color":"red","border-width":"2px"});
+   }
+   else
+   {
+     $(this).css({"border-color":"skyblue"});
+   }
+});
+</script>

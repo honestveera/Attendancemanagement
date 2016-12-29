@@ -1,0 +1,3 @@
+module CandidateprofilesHelper
+  
+end

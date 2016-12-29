@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Interviewer App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body class="body">
+  <div class="login-form">
+    <div class="thumbnail">
+      <img src="assets/Markuci.png" style="margin-top: -20px;"/>
+    </div>
+   <%= form_for(@company) do |f| %>
+        <% if @company.errors.any? %>
+          <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <p><%= pluralize(@company.errors.count, "error") %> prohibited this company from being saved:</p>
+            <ul>
+            <% @company.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+        <% if flash[:notice] -%>
+        <div class="alert alert-success fade in">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          <%= flash[:notice] %>
+         </div>
+         <% end -%>
+        <div class="row">
+               <div class="input-group">
+               <div class="form-group">
+                <%= f.label :companyemail,"Company Email",:style=>"color:orange" %><br>
+                <%= f.text_field :companyemail,:placeholder=>"Email",:class => "form-control required",:required => true,:onblur=>"validateEmail(this);"%>
+              </div>
+              <div class="form-group">
+                <%= f.label :password,"Password",:style=>"color:orange" %><br>
+                <%= f.password_field :password,:placeholder=>" Password",:class => "form-control required",:required => true%>
+              </div>
+              <div class="form-group">
+                <%= f.label :password_confirmation,"Password Confirmation",:style=>"color:orange" %><br>
+                <%= f.password_field :password_confirmation,:placeholder=>"Confirm Password",:class => "form-control required",:required => true %>
+              </div>
+              <div class="form-group">
+                <%= f.label :role,"Role",:style=>"color:orange" %><br>
+                <%b=["Interviewer","Recruiter"]%>
+                <% b.each do |a|%>
+                <%= f.radio_button :role,a,:style=>"color:red" %> <label style="color:white"><%=a%></label>
+                <% end %>
+              </div>
+              <div class="form-group">
+              <input name="cecky" id="checky" value="1" type="checkbox" /><label style="color:white" class="terms">I accept the terms of use</label>
+              </div>
+              <div class="actions">
+                <%= f.submit :class=>"btn btn-primary btn-md" %>
+              </div>
+              <%= link_to 'Login', root_path,:class=>"btn btn-primary btn-md",:id=>"link"%>
+
+           </div>
+        </div>
+<% end %>
+</div>
+</div>
+<script type="text/javascript">
+
+
+  function isNumberKey(evt)
+    {
+       var charCode = (evt.which) ? evt.which : event.keyCode
+       if (charCode > 31 && (charCode < 48 || charCode > 57))
+          return false;
+       return true;
+    }
+    function validateEmail(emailField)
+    {
+        var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+
+        if (reg.test(emailField.value) == false)
+        {
+               $('#company_companyemail').css({"border-color":"red","border-width":"2px"});
+            return false;
+        }
+
+        return true;
+     }
+
+    $('input[type="submit"]').click(function(){
+       if($('#company_companyemail').val()=="")
+       {
+         $('#company_companyemail').css({"border-color":"red","border-width":"2px"});
+       }
+       if($('#company_password').val()=="")
+       {
+         $('#company_password').css({"border-color":"red","border-width":"2px"});
+       }
+       if($('#company_password_confirmation').val()=="")
+       {
+         $('#company_password_confirmation').css({"border-color":"red","border-width":"2px"});
+       }
+       else
+       {
+          $('#company_companyemail').css({"border-color":"skyblue"});
+          $('#company_password').css({"border-color":"skyblue"});
+          $('#company_password_confirmation').css({"border-color":"skyblue"});
+       }
+    });
+    $('#company_companyemail').focusout(function(){
+      if($(this).val().length==0)
+      {
+        $(this).css({"border-color":"red","border-width":"2px"});
+      }
+      else
+      {
+        $(this).css({"border-color":"skyblue"});
+      }
+    });
+
+    $('input[type="password"]').focusout(function(){
+       if($(this).val()=="")
+       {
+         $(this).css({"border-color":"red","border-width":"2px"});
+       }
+       else if($(this).val().length<6)
+       {
+         $(this).css({"border-color":"orange","border-width":"2px"});
+       }
+       else
+       {
+         $(this).css({"border-color":"skyblue"});
+       }
+    });
+
+
+</script>
+
+</body>
+</html>

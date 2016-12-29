@@ -1,0 +1,31 @@
+<div class="jumbotron">
+<p id="notice"><%= notice %></p>
+
+<h3>Listing Skillsets</h3>
+<div class="table-responsive">
+<table class="table table-bordered table-hover sortable">
+  <thead class="bg-success">
+    <tr>
+      <th class="text-info">Skills</th>
+      <th class="text-info">Show</th>
+      <th class="text-info">Edit</th>
+      <th class="text-info">Delete</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @skillsets.each do |skillset| %>
+      <tr>
+        <td ><%= skillset.skills %></td>
+        <td><%= link_to 'Show', skillset,:class=>"btn btn-primary btn-sm" %></td>
+        <td><%= link_to 'Edit', edit_skillset_path(skillset),:class=>"btn btn-info btn-sm" %></td>
+        <td><%= link_to 'Destroy', skillset, method: :delete,:class=>"btn btn-danger btn-sm", data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+</div>
+<%= link_to 'New Skillset', new_skillset_path,:class=>"btn btn-primary btn-sm"  %>
+</div>

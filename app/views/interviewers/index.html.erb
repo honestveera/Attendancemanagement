@@ -1,0 +1,41 @@
+<div class="jumbotron">
+<p id="notice"><%= notice %></p>
+
+<h3>Listing Interviewers</h3>
+<div class="table-responsive">
+<table class="table table-bordered table-hover sortable">
+  <thead class="bg-success">
+    <tr>
+      <th class="text-info">Interviewer Name</th>
+      <th class="text-info">Interviewer Company</th>
+      <th class="text-info">Company Email</th>
+      <th class="text-info">Primary Skills</th>
+       <th class="text-info">Secondary Skills</th>
+       <th class="text-info">Other Skills</th>
+       <th class="text-info">Show</th>
+       <th class="text-info">Edit</th>
+       <th class="text-info">Destroy</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @interviewers.each do |interviewer| %>
+      <tr>
+        <td><%= interviewer.interviewername%></td>
+        <td><%= interviewer.interviewercompany %></td>
+          <td><%= interviewer.companyemail%></td>
+          <td><%= interviewer.primaryskills%></td>
+          <td><%= interviewer.secondaryskills%></td>
+          <td><%= interviewer.otherskills%></td>
+        <td><%= link_to 'Show', interviewer,:class=>"btn btn-primary btn-sm"%></td>
+        <td><%= link_to 'Edit', edit_interviewer_path(interviewer),:class=>"btn btn-info btn-sm" %></td>
+        <td><%= link_to 'Destroy', interviewer, method: :delete,:class=>"btn btn-danger btn-sm", data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+</div>
+<%= link_to 'New Interviewer', new_interviewer_path,:class=>"btn btn-primary btn-md"%>
+</div>

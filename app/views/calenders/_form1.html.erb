@@ -1,0 +1,138 @@
+<%= form_for(@calender) do |f| %>
+  <% if @calender.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@calender.errors.count, "error") %> prohibited this calender from being saved:</h2>
+
+      <ul>
+      <% @calender.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <!-- <div class="row">
+     <div class="col-lg-4 col-lg-offset-4">
+         <div class="input-group"> -->
+            <div class="form-group">
+              <%= f.label :dateformat,"Date" %><br>
+              <div class='input-group date' id='datetimepicker4'>
+                  <%= f.text_field :dateformat,:class=>"form-control",:readonly => true%>
+                      <span class="input-group-addon">
+                          <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+              </div>
+            </div>
+             <table class="table table-bordered table-hover" id="example">
+              <thead>
+                <tr>
+                 <th><span class="text"><%=check_box_tag "interviewertime[]",1,false,:id=>"interviewer_time"%>Times</span></th>
+                 <% interviewer=Calender.find_by(:interviewer_id=>"#{@calender.interviewer_id}",:dateformat=>"#{@calender.dateformat}") %>
+                 <th><span class="text">
+                   <%=check_box_tag "interviewer_id#{interviewer.id}[]",interviewer.id,false,:id=>"interviewer_ids_#{interviewer.id}"%>
+                   <%=interviewer.interviewername%></br>
+                   </span>
+                 </th>
+                 <%=f.hidden_field :interviewername,:value=>"#{interviewer.interviewername}"%>
+                 <%=f.hidden_field :interviewer_id,:value=>"#{interviewer.id}"%>
+               </tr>
+               </thead>
+
+               <tbody>
+               <tr>
+                <% a=["6.00AM","6.30AM","7.00AM","7.30AM","8.00AM","8.30AM","9.00AM","9.30AM","10.00AM","10.30AM","11.00AM","11.30AM","12.00AM","12.30PM","1.00PM","1.30PM","2.00PM","2.30PM","3.00PM","3.30PM","4.00PM","4.30PM","5.00PM","5.30PM","6.00PM","6.30PM","7.00PM","7.30PM","8.00PM"]%>
+                <% a.each_with_index do |a,i|%>
+                 <tr>
+                   <td><%=a%></td>
+                   <% interviewer=Calender.find_by(:interviewer_id=>"#{@calender.interviewer_id}",:dateformat=>"#{@calender.dateformat}") %>
+                   <td><%=check_box_tag "interviewer_#{interviewer.id}[]",a,interviewer.timeslot.gsub(/[\[\] "]/,'').split(",").include?(a) ? true:false,:id=>"interviewer_ids_#{interviewer.id}"%></td>
+                 </tr>
+                 <%end%>
+                 <%= f.hidden_field :timeslot,:value =>"#{a}"%>
+              </tr>
+            </tbody>
+
+          </table>
+
+          </br>
+            <!-- <div class="form-group">
+              <%= f.hidden_field :interviewer_id%>
+            </div> -->
+            <div class="form-group">
+              <%= f.hidden_field :status,:value =>"new"%>
+            </div>
+            <div class="form-group">
+              <%= f.hidden_field "companyemail",:class=>"required",:value => session[:companyemail]%>
+            </div>
+            <div class="form-group">
+              <%= f.hidden_field "password",:class=>"required",:value => session[:password]%>
+            </div>
+        <div class="row">
+          <div  class="col-lg-4 col-lg-offset-4">
+            <div class="actions">
+              <%= f.submit :class=>"btn btn-primary btn-lg",:id=>"interviewersubmit"%>
+            </div>
+         </div>
+        </div>
+
+  <% end %>
+<script type="text/javascript">
+
+$('.selectpicker').selectpicker({
+    size: "fit",
+    showTick:true,
+    tickIcon:"",
+    showTick:true
+});
+
+ $('#datetimepicker3').datetimepicker({
+     format: 'LT'
+   });
+   var pd = new Date();
+   pd.setDate(pd.getDate()-1);
+   //var input = $('#calender_dateformat').attr('value', moment().format("DD-MM-YYYY"));
+  $('#datetimepicker4').datetimepicker({
+     format: 'DD-MM-YYYY'
+   });
+   $('#example').DataTable( {
+       "scrollX": "1200px",
+       "scrollY": "400px",
+       "paging" :false,
+       "info":false,
+       "ordering":false,
+       "sDom": 'rtip',
+       "columnDefs": [{
+        "defaultContent": "-",
+         "targets": "_all"
+         }]
+  });
+  $('th input[type="checkbox"]').click(function(){
+    a=$(this).attr('id')
+    if($(this).is(':checked'))
+    {
+      $("input[id='"+a+"']").prop('checked',true)
+    }
+    else
+    {
+      $("input[id='"+a+"']").prop('checked',false)
+    }
+  });
+  $("#interviewer_time").click(function(){
+    if($(this).is(':checked'))
+    {
+      $("input[type='checkbox']").prop('checked',true)
+    }
+    else
+    {
+      $("input[type='checkbox']").prop('checked',false)
+    }
+  });
+</script>
+<style type="text/css">
+.table > thead > tr > th, .table > thead > tr > td, .table > tbody > tr > th, .table > tbody > tr > td, .table > tfoot > tr > th, .table > tfoot > tr > td {
+    padding: 4px;
+    line-height: 1.42857;
+    vertical-align: top;
+    border-top: 1px solid #DDD;
+}
+
+</style>
